@@ -48,7 +48,7 @@ type MsgGetQuery struct {
 	Data *MsgGetOpts `json:"data,omitempty"`
 	// Parameters of "del" request: Since, Before, Limit.
 	Del *MsgGetOpts `json:"del,omitempty"`
-	// Parameters of reactions request: IfModifiedSince, Since, Before, IdRanges, Limit.
+	// Parameters of reactions request: Since, Before, IdRanges, Limit.
 	React *MsgGetOpts `json:"react,omitempty"`
 }
 
