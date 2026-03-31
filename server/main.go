@@ -48,6 +48,7 @@ import (
 	_ "github.com/tinode/chat/server/push/stdout"
 	_ "github.com/tinode/chat/server/push/tnpg"
 
+	"github.com/tinode/chat/server/media"
 	"github.com/tinode/chat/server/store"
 
 	// Credential validators
@@ -214,6 +215,16 @@ var globals struct {
 
 	// Maximum age of messages which can be deleted with 'D' permission.
 	msgDeleteAge time.Duration
+
+	// Allowed reactions map for quick lookup of allowed emoji by serverside policy.
+	allowedReactions map[string]bool
+	// The same reactions as a priority-sorted list.
+	reactions []string
+
+	// allowedOrigins is the list of HTTP Origins permitted for WebSocket and long-poll
+	// connections. Supports exact matches and wildcards (e.g. https://*.example.com).
+	// An empty slice means all origins are allowed (backward-compatible default).
+	allowedOrigins []media.AllowedOrigin
 }
 
 // Credential validator config.
@@ -317,6 +328,13 @@ type configType struct {
 	// Missing or 0 means no age limit.
 	// Does not affect topic owners: owners can delete any message.
 	MsgDeleteAge int `json:"msg_delete_age"`
+
+	// AllowedReactions restricts reaction content that clients may use.
+	AllowedReactions []string `json:"allowed_reactions,omitempty"`
+
+	// AllowedOrigins is the list of HTTP Origins permitted for WebSocket and long-poll
+	// connections. An empty list allows all origins (default, backward compatible).
+	AllowedOrigins []string `json:"allowed_origins,omitempty"`
 
 	// Configs for subsystems
 	Cluster   json.RawMessage             `json:"cluster_config"`
@@ -574,6 +592,40 @@ func main() {
 	if globals.maxMessageSize <= 0 {
 		globals.maxMessageSize = defaultMaxMessageSize
 	}
+
+	// Emoji reactions configuration.
+	var reactions []string
+	globals.allowedReactions = make(map[string]bool)
+	if len(config.AllowedReactions) > 0 {
+		for _, r := range config.AllowedReactions {
+			if isValidReaction(r) {
+				if _, exists := globals.allowedReactions[r]; exists {
+					logs.Warn.Println("Ignored duplicate reaction emoji:", r)
+					continue
+				}
+				globals.allowedReactions[r] = true
+				reactions = append(reactions, r)
+			} else {
+				logs.Warn.Println("Ignored invalid reaction emoji:", r)
+			}
+		}
+
+		if len(reactions) > 0 {
+			globals.reactions = reactions
+			logs.Info.Println("Number of allowed reactions:", len(globals.reactions))
+		}
+	}
+
+	// Allowed origins for WebSocket and long-poll connections.
+	if len(config.AllowedOrigins) > 0 {
+		var err error
+		globals.allowedOrigins, err = media.ParseCORSAllow(config.AllowedOrigins)
+		if err != nil {
+			logs.Err.Fatal("Invalid allowed_origins:", err)
+		}
+		logs.Info.Println("Allowed origins:", config.AllowedOrigins)
+	}
+
 	// Maximum number of group topic subscribers
 	globals.maxSubscriberCount = config.MaxSubscriberCount
 	if globals.maxSubscriberCount <= 1 {
