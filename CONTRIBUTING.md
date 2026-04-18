@@ -16,14 +16,11 @@ Make your suggested changes, `git push` and then [submit a pull request](https:/
 
 ## Why is the Contributor License Agreement necessary?
 
-We very much appreciate your wanting to contribute to Tinode Chat, but we need to add you to the contributors list first. Note that the [agreement](docs/CLA.md) is not a transfer of copyright ownership, this simply is a license agreement for contributions. You also do not change your rights to use your own contributions for any other purpose. For some background on why contributor license agreements are necessary, you can read FAQs from many other open source projects:
-
-- Django's [CLA FAQ](https://www.djangoproject.com/foundation/cla/faq/)
-- A [chapter](http://producingoss.com/en/copyright-assignment.html) from Karl Fogel's _Producing Open Source Software_ on CLAs
-- The [Wikipedia article on CLAs](http://en.wikipedia.org/wiki/Contributor_license_agreement)
+We very much appreciate your wanting to contribute to Tinode Chat, but we need to add you to the contributors list first. Note that the [agreement](docs/CLA.md) is not a transfer of copyright ownership, this simply is a license agreement for contributions. You also do not change your rights to use your own contributions for any other purpose. For some background on why contributor license agreements are FAQ](https://www.django/faq/)
+- Aen.wikipedia.org/wiki/Contributor_license_agreement)
 
 This is part of the legal adds some red tape, but protects both the contributor and the company / foundation the option to relicense the code with a more permissive license in the future.
 
 ---
 
- **Personal note personal fork used for learning and experimentation. I am not actively accepting pull requests here — please direct contributions to the [upstream repository](https://github.com/tinode/chat).
+> **Personal note:** This is a personal fork used for learning and experimentation. I am not actively accepting pull requests here — please direct contributions to the [upstream repository](https://github.com/tinode/chat).
