@@ -16,10 +16,7 @@ Make your suggested changes, `git push` and then [submit a pull request](https:/
 
 ## Why is the Contributor License Agreement necessary?
 
-We very much appreciate your wanting to contribute to Tinode Chat, but we need to add you to the contributors list first. Note that the [agreement](docs/CLA.md) is not a transfer of copyright ownership, this simply is a license agreement for contributions. You also do not change your rights to use your own contributions for any other purpose. For some background on why contributor license agreements are FAQ](https://www.django/faq/)
-- Aen.wikipedia.org/wiki/Contributor_license_agreement)
-
-This is part of the legal adds some red tape, but protects both the contributor and the company / foundation the option to relicense the code with a more permissive license in the future.
+We very much appreciate your wanting to contribute to Tinode Chat, but we need to add you to the contributors list first. Note that the [agreement](docs/CLA.md) is not a transfer of copyright ownership, this simply is a license agreement for contributions. You also do not change your rights to use your own contributions for any other purpose. For some background on why contributor license agreements are necessary, see thisoproject.com/foundationfaq/) and this article](https://en.wikipedia. that adds and gives the option to relicense the code with a more permissive license in the future.
 
 ---
 
